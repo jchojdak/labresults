@@ -1,10 +1,10 @@
-package com.labresults;
+package com.labresults.userservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DiscoveryServerApplicationTests {
+class UserServiceApplicationTests {
 
     @Test
     void contextLoads() {
