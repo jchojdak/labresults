@@ -1,0 +1,80 @@
+version: '3.8'
+
+networks:
+  labresults-network:
+    name: labresults-network
+    driver: bridge
+
+services:
+  postgres-db:
+    container_name: postgres-db
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=labresults
+    ports:
+      - "5432:5432"
+    networks:
+      - labresults-network
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  eureka-server:
+    container_name: eureka-server
+    build:
+      context: .
+      dockerfile: /eureka-server/Dockerfile
+    restart: always
+    ports:
+      - "8761:8761"
+    networks:
+      - labresults-network
+    depends_on:
+      - postgres-db
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: .
+      dockerfile: /api-gateway/Dockerfile
+    restart: always
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+    ports:
+      - "8080:8080"
+    networks:
+      - labresults-network
+    depends_on:
+      - eureka-server
+  auth-service:
+    container_name: auth-service
+    build:
+      context: .
+      dockerfile: /auth-service/Dockerfile
+    restart: always
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+    ports:
+      - "8081:8081"
+    networks:
+      - labresults-network
+    depends_on:
+      - api-gateway
+  user-service:
+    container_name: user-service
+    build:
+      context: .
+      dockerfile: /user-service/Dockerfile
+    restart: always
+    environment:
+      spring.datasource.url: jdbc:postgresql://postgres-db:5432/labresults
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+    ports:
+      - "8082:8082"
+    networks:
+      - labresults-network
+    depends_on:
+      - api-gateway
+
+volumes:
+  db-data:
