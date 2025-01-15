@@ -15,11 +15,11 @@ public class ApiGatewayConfig {
     @Bean
     public RouteLocator routes(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("auth-service", r -> r.path("/api/v1/auth/**")
-                        .uri("lb:http://auth-service"))
-                .route("user-service", r -> r.path("/api/v1/users/**")
+                .route("auth-service", r -> r.path("/auth/**")
+                        .uri("lb://auth-service"))
+                .route("user-service", r -> r.path("/user/**")
                         //.filters(f -> f.filter(filter))
-                        .uri("lb:http://user-service"))
+                        .uri("lb://user-service"))
                 .build();
     }
 }
