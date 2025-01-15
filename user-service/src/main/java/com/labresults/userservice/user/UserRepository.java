@@ -1,6 +1,5 @@
-package com.labresults.userservice.repository;
+package com.labresults.userservice.user;
 
-import com.labresults.userservice.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

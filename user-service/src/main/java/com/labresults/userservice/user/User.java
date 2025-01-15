@@ -1,6 +1,10 @@
-package com.labresults.userservice.model;
+package com.labresults.userservice.user;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -10,13 +14,14 @@ import java.util.UUID;
 @Entity
 @Table(name="users")
 @Data
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private UUID id;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "pesel")
@@ -31,18 +36,18 @@ public class User {
     @Column(name = "mobile")
     private String mobile;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "date_of_birth", nullable = false)
+    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @Column(name = "registration_date")
+    @Column(name = "registration_date", nullable = false)
     private LocalDateTime registrationDate = LocalDateTime.now();
 
-    @Column(name = "active")
+    @Column(name = "active", nullable = false)
     private boolean active;
 
-    @Column(name = "blocked")
+    @Column(name = "blocked", nullable = false)
     private boolean blocked;
 }

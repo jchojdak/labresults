@@ -1,4 +1,4 @@
-package com.labresults.userservice.dto;
+package com.labresults.userservice.user.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
