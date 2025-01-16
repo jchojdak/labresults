@@ -1,7 +1,6 @@
 package com.labresults.customerservice.customer;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -9,9 +8,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name="users")
+@Table(name="customers")
 @Data
-@Builder
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

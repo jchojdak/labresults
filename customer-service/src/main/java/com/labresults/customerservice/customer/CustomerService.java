@@ -24,7 +24,7 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final ModelMapper modelMapper;
 
-    public CustomerDTO createUser(CreateCustomerDTO createRequest) {
+    public CustomerDTO createCustomer(CreateCustomerDTO createRequest) {
         if (customerRepository.existsByEmail(createRequest.getEmail()))
             throw new EntityAlreadyExistsException(createRequest.getEmail());
 
@@ -34,14 +34,14 @@ public class CustomerService {
         return modelMapper.map(savedCustomer, CustomerDTO.class);
     }
 
-    public CustomerDTO getUserById(UUID userId) {
+    public CustomerDTO getCustomerById(UUID userId) {
         Customer customer = customerRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException(userId.toString()));
 
         return modelMapper.map(customer, CustomerDTO.class);
     }
 
-    public List<CustomerDTO> getAllUsers(Integer page, Integer size, Sort.Direction sort) {
+    public List<CustomerDTO> getAllCustomers(Integer page, Integer size, Sort.Direction sort) {
         int pageNumber = (page != null && page >= 0) ? page : 0;
         int pageSize = (size != null && size >= 1) ? size : 10;
         Sort.Direction sortDirection = (sort != null) ? sort : Sort.Direction.ASC;
