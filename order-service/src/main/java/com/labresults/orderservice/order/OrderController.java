@@ -1,9 +1,14 @@
 package com.labresults.orderservice.order;
 
+import com.labresults.orderservice.order.model.request.OpenOrderRequest;
+import com.labresults.orderservice.order.model.dto.OrderDTO;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/order")
@@ -14,5 +19,24 @@ public class OrderController {
     @GetMapping("/test")
     public String test() {
         return "OK: ORDER-SERVICE";
+    }
+
+    @PostMapping
+    // TO-DO: add security for personel and admin
+    public OrderDTO openOrder(@RequestBody @Valid OpenOrderRequest request) {
+        return orderService.openOrder(request);
+    }
+
+    @GetMapping("/{orderId}")
+    // TO-DO: add security for personel and admin
+    public OrderDTO getOrderById(@PathVariable UUID orderId) {
+        return orderService.getOrderById(orderId);
+    }
+
+    @GetMapping
+    public List<OrderDTO> getAllOrders(@RequestParam(required = false) Integer page,
+                                       @RequestParam(required = false) Integer size,
+                                       @RequestParam(required = false) Sort.Direction sort) {
+        return orderService.getAllCustomers(page, size, sort);
     }
 }
