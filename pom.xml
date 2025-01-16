@@ -9,11 +9,11 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>user-service</module>
-        <module>auth-service</module>
-        <module>order-service</module>
-        <module>api-gateway</module>
         <module>eureka-server</module>
+        <module>api-gateway</module>
+        <module>auth-service</module>
+        <module>customer-service</module>
+        <module>order-service</module>
     </modules>
 
     <properties>
