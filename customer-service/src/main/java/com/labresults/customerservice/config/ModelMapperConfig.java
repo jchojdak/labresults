@@ -1,4 +1,4 @@
-package com.labresults.userservice.config;
+package com.labresults.customerservice.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.labresults.userservice.user;
+package com.labresults.customerservice.customer;
 
 public enum Role {
     ADMIN,

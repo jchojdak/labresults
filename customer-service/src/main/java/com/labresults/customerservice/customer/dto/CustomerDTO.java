@@ -1,10 +1,10 @@
-package com.labresults.userservice.user.dto;
+package com.labresults.customerservice.customer.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class UserDTO {
+public class CustomerDTO {
     private UUID id;
     private String email;
     private String pesel;

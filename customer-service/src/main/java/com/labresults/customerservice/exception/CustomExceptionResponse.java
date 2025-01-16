@@ -1,4 +1,4 @@
-package com.labresults.userservice.exception;
+package com.labresults.customerservice.exception;
 
 import lombok.Data;
 
