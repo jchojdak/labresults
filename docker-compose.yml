@@ -2,13 +2,28 @@ version: '3.8'
 
 networks:
   labresults-network:
-    name: labresults-network
     driver: bridge
 
 services:
-  postgres-db:
-    container_name: postgres-db
-    image: postgres:16-alpine
+  mysqldb:
+    container_name: mysqldb
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=P4SSW0RD
+      - MYSQL_DATABASE=labresults
+      - MYSQL_USER=labresults
+      - MYSQL_PASSWORD=password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data1:/var/lib/mysql
+    networks:
+      - labresults-network
+
+  postgres:
+    container_name: postgres
+    image: postgres:16.2-alpine
     restart: always
     environment:
       - POSTGRES_PASSWORD=password
@@ -19,7 +34,8 @@ services:
     networks:
       - labresults-network
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - db-data2:/var/lib/postgresql/data
+
   eureka-server:
     container_name: eureka-server
     build:
@@ -31,7 +47,8 @@ services:
     networks:
       - labresults-network
     depends_on:
-      - postgres-db
+      - mysqldb
+
   api-gateway:
     container_name: api-gateway
     build:
@@ -46,6 +63,7 @@ services:
       - labresults-network
     depends_on:
       - eureka-server
+
   auth-service:
     container_name: auth-service
     build:
@@ -60,21 +78,7 @@ services:
       - labresults-network
     depends_on:
       - api-gateway
-  customer-service:
-    container_name: customer-service
-    build:
-      context: .
-      dockerfile: /customer-service/Dockerfile
-    restart: always
-    environment:
-      spring.datasource.url: jdbc:postgresql://postgres-db:5432/labresults
-      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
-    ports:
-      - "8084:8084"
-    networks:
-      - labresults-network
-    depends_on:
-      - api-gateway
+
   order-service:
     container_name: order-service
     build:
@@ -82,14 +86,31 @@ services:
       dockerfile: /order-service/Dockerfile
     restart: always
     environment:
-      spring.datasource.url: jdbc:postgresql://postgres-db:5432/labresults
+      spring.datasource.url: jdbc:mysql://mysqldb:3306/labresults
       eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
     ports:
       - "8083:8083"
     networks:
       - labresults-network
     depends_on:
-      - customer-service
+      - api-gateway
+
+  customer-service:
+    container_name: customer-service
+    build:
+      context: .
+      dockerfile: /customer-service/Dockerfile
+    restart: always
+    environment:
+      spring.datasource.url: jdbc:postgresql://postgres:5432/labresults
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+    ports:
+      - "8084:8084"
+    networks:
+      - labresults-network
+    depends_on:
+      - api-gateway
 
 volumes:
-  db-data:
+  db-data1:
+  db-data2:

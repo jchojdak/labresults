@@ -34,6 +34,7 @@ public class OrderController {
     }
 
     @GetMapping
+    // TO-DO: add security for personel and admin
     public List<OrderDTO> getAllOrders(@RequestParam(required = false) Integer page,
                                        @RequestParam(required = false) Integer size,
                                        @RequestParam(required = false) Sort.Direction sort) {
