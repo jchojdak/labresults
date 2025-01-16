@@ -36,6 +36,19 @@ services:
     volumes:
       - db-data2:/var/lib/postgresql/data
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
   eureka-server:
     container_name: eureka-server
     build:
@@ -94,6 +107,7 @@ services:
       - labresults-network
     depends_on:
       - api-gateway
+      - rabbitmq
 
   customer-service:
     container_name: customer-service
@@ -114,3 +128,4 @@ services:
 volumes:
   db-data1:
   db-data2:
+  rabbitmq-data:

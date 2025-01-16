@@ -7,6 +7,8 @@ import com.labresults.orderservice.order.model.request.OpenOrderRequest;
 import com.labresults.orderservice.order.model.dto.OrderDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -25,26 +28,28 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
+    private final RabbitTemplate rabbitTemplate;
+
+    @Value("${rabbitmq.exchange}")
+    private String exchange;
+
+    @Value("${rabbitmq.routing-key}")
+    private String routingKey;
 
     public OrderDTO openOrder(OpenOrderRequest request) {
         UUID customerId = request.getCustomerId();
-        /*
-        CHECK CUSTOMER IN CUSTOMER-SERVICE
-        if (customer.find(customerId).exists == false) {
-            throw new EntityNotFoundException();
-        }
-         */
 
         Order order = Order.builder()
                 .customerId(request.getCustomerId())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .status(OrderStatus.PENDING)
+                .samples(new ArrayList<>())
                 //TO-DO: .samples()
                 .build();
 
         Order savedOrder = orderRepository.save(order);
-        // TO-DO: send samples to lab-service
+        rabbitTemplate.convertAndSend(exchange, routingKey, savedOrder);
 
         return modelMapper.map(savedOrder, OrderDTO.class);
     }
