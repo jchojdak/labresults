@@ -31,9 +31,6 @@ public class Customer {
     @Column(name = "mobile")
     private String mobile;
 
-    @Column(name = "password")
-    private String password;
-
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 

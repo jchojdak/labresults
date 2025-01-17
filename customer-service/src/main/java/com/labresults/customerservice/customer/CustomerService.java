@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
-    private static final String SORT_PROPERTIES = "createdAt";
+    private static final String SORT_PROPERTIES = "registrationDate";
 
     private final CustomerRepository customerRepository;
     private final ModelMapper modelMapper;
