@@ -1,5 +1,6 @@
 package com.labresults.orderservice.order;
 
+import com.labresults.orderservice.config.RabbitMQConfig;
 import com.labresults.orderservice.exception.EntityNotFoundException;
 import com.labresults.orderservice.order.model.Order;
 import com.labresults.orderservice.order.model.enums.OrderStatus;
@@ -7,8 +8,7 @@ import com.labresults.orderservice.order.model.request.OpenOrderRequest;
 import com.labresults.orderservice.order.model.dto.OrderDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +16,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -28,30 +27,28 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
-    private final RabbitTemplate rabbitTemplate;
 
-    @Value("${rabbitmq.exchange}")
-    private String exchange;
-
-    @Value("${rabbitmq.routing-key}")
-    private String routingKey;
-
-    public OrderDTO openOrder(OpenOrderRequest request) {
+    @RabbitListener(queues = "order.create.queue")
+    public OrderDTO createOrder(OpenOrderRequest request) {
         UUID customerId = request.getCustomerId();
 
         Order order = Order.builder()
-                .customerId(request.getCustomerId())
+                .customerId(customerId)
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
-                .status(OrderStatus.PENDING)
-                .samples(new ArrayList<>())
-                //TO-DO: .samples()
+                .status(OrderStatus.CREATED)
                 .build();
 
+        // SAVE ORDER
         Order savedOrder = orderRepository.save(order);
-        rabbitTemplate.convertAndSend(exchange, routingKey, savedOrder);
 
         return modelMapper.map(savedOrder, OrderDTO.class);
+    }
+
+    @RabbitListener(queues = "order.delete.queue")
+    public void deleteOrderById(UUID orderId) {
+        // DELETE ORDER
+        orderRepository.deleteById(orderId);
     }
 
     public OrderDTO getOrderById(UUID orderId) {

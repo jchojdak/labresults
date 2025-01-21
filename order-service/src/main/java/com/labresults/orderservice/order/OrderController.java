@@ -21,10 +21,11 @@ public class OrderController {
         return "OK: ORDER-SERVICE";
     }
 
+    /*
     @PostMapping
     // TO-DO: add security for personel and admin
     public OrderDTO openOrder(@RequestBody @Valid OpenOrderRequest request) {
-        return orderService.openOrder(request);
+        return orderService.createOrder(request);
     }
 
     @GetMapping("/{orderId}")
@@ -39,5 +40,6 @@ public class OrderController {
                                        @RequestParam(required = false) Integer size,
                                        @RequestParam(required = false) Sort.Direction sort) {
         return orderService.getAllCustomers(page, size, sort);
-    }
+    }*/
+
 }

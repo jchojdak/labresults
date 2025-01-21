@@ -1,40 +1,37 @@
 package com.labresults.orderservice.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfig {
-    @Value("${rabbitmq.exchange}")
-    private String exchange;
-
-    @Value("${rabbitmq.routing-key}")
-    private String routingKey;
-
-    @Value("${rabbitmq.queue}")
-    private String rabbitQueue;
-
     @Bean
-    public DirectExchange exchange() {
-        return new DirectExchange(exchange);
+    public Queue orderCreateQueue() {
+        return new Queue("order.create.queue", true);
     }
 
     @Bean
-    public Queue queue() {
-        return new Queue(rabbitQueue, true);
+    public Queue orderDeleteQueue() {
+        return new Queue("order.delete.queue", true);
     }
 
     @Bean
-    public Binding binding(Queue queue, DirectExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(routingKey);
+    public TopicExchange orderExchange() {
+        return new TopicExchange("order.exchange");
+    }
+
+    @Bean
+    public Binding orderCreateBinding(Queue orderCreateQueue, TopicExchange orderExchange) {
+        return BindingBuilder.bind(orderCreateQueue).to(orderExchange).with("order.create");
+    }
+
+    @Bean
+    public Binding orderDeleteBinding(Queue orderDeleteQueue, TopicExchange orderExchange) {
+        return BindingBuilder.bind(orderDeleteQueue).to(orderExchange).with("order.delete");
     }
 
     @Bean
