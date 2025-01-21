@@ -6,6 +6,7 @@ import com.labresults.customerservice.customer.dto.CreateCustomerDTO;
 import com.labresults.customerservice.customer.dto.CustomerDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +25,7 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final ModelMapper modelMapper;
 
+    @RabbitListener(queues = "customer.create.queue")
     public CustomerDTO createCustomer(CreateCustomerDTO createRequest) {
         if (customerRepository.existsByEmail(createRequest.getEmail()))
             throw new EntityAlreadyExistsException(createRequest.getEmail());
@@ -32,6 +34,11 @@ public class CustomerService {
 
         Customer savedCustomer = customerRepository.save(customer);
         return modelMapper.map(savedCustomer, CustomerDTO.class);
+    }
+
+    @RabbitListener(queues = "customer.delete.queue")
+    public void deleteCustomerById(UUID customerId) {
+        customerRepository.deleteById(customerId);
     }
 
     public CustomerDTO getCustomerById(UUID userId) {
