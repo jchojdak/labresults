@@ -1,6 +1,5 @@
-package com.labresults.orderservice.sample;
+package com.labresults.sampleservice.sample;
 
-import com.labresults.orderservice.order.model.Order;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -17,13 +16,12 @@ public class Sample {
     @Column(name = "id", nullable = false)
     private UUID id;
 
+    @Column(name = "order_id", nullable = false)
+    private UUID orderId;
+
     @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "type", nullable = false)
     private String type;
-
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
 }
