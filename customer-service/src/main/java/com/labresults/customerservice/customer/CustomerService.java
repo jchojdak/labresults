@@ -25,7 +25,6 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final ModelMapper modelMapper;
 
-    @RabbitListener(queues = "customer.create.queue")
     public CustomerDTO createCustomer(CreateCustomerDTO createRequest) {
         if (customerRepository.existsByEmail(createRequest.getEmail()))
             throw new EntityAlreadyExistsException(createRequest.getEmail());
@@ -36,7 +35,6 @@ public class CustomerService {
         return modelMapper.map(savedCustomer, CustomerDTO.class);
     }
 
-    @RabbitListener(queues = "customer.delete.queue")
     public void deleteCustomerById(UUID customerId) {
         customerRepository.deleteById(customerId);
     }

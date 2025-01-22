@@ -1,6 +1,5 @@
 package com.labresults.orderservice.order;
 
-import com.labresults.orderservice.config.RabbitMQConfig;
 import com.labresults.orderservice.exception.EntityNotFoundException;
 import com.labresults.orderservice.order.model.Order;
 import com.labresults.orderservice.order.model.enums.OrderStatus;
@@ -8,7 +7,6 @@ import com.labresults.orderservice.order.model.request.OpenOrderRequest;
 import com.labresults.orderservice.order.model.dto.OrderDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +26,6 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
 
-    @RabbitListener(queues = "order.create.queue")
     public OrderDTO createOrder(OpenOrderRequest request) {
         UUID customerId = request.getCustomerId();
 
@@ -39,15 +36,12 @@ public class OrderService {
                 .status(OrderStatus.CREATED)
                 .build();
 
-        // SAVE ORDER
         Order savedOrder = orderRepository.save(order);
 
         return modelMapper.map(savedOrder, OrderDTO.class);
     }
 
-    @RabbitListener(queues = "order.delete.queue")
     public void deleteOrderById(UUID orderId) {
-        // DELETE ORDER
         orderRepository.deleteById(orderId);
     }
 
