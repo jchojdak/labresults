@@ -23,9 +23,9 @@ public class ApiGatewayConfig {
                 .route("order-service", r -> r.path("/order/**")
                         //.filters(f -> f.filter(filter))
                         .uri("lb://order-service"))
-                .route("reception-service", r -> r.path("/reception/**")
+                .route("sample-service", r -> r.path("/sample/**")
                         //.filters(f -> f.filter(filter))
-                        .uri("lb://reception-service"))
+                        .uri("lb://sample-service"))
                 .build();
     }
 }

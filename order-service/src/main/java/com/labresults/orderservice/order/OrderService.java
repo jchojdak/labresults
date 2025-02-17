@@ -1,10 +1,13 @@
 package com.labresults.orderservice.order;
 
+import com.labresults.orderservice.customer.CustomerClient;
+import com.labresults.orderservice.customer.CustomerResponse;
 import com.labresults.orderservice.exception.EntityNotFoundException;
 import com.labresults.orderservice.order.model.Order;
 import com.labresults.orderservice.order.model.enums.OrderStatus;
 import com.labresults.orderservice.order.model.request.OpenOrderRequest;
 import com.labresults.orderservice.order.model.dto.OrderDTO;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -26,11 +29,20 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
 
+    private final CustomerClient customerClient;
+
     public OrderDTO createOrder(OpenOrderRequest request) {
         UUID customerId = request.getCustomerId();
 
+        CustomerResponse customer;
+        try {
+            customer = customerClient.getUser(customerId);
+        } catch (FeignException.NotFound e) {
+            throw new EntityNotFoundException(customerId.toString());
+        }
+
         Order order = Order.builder()
-                .customerId(customerId)
+                .customerId(customer.getId())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .status(OrderStatus.CREATED)

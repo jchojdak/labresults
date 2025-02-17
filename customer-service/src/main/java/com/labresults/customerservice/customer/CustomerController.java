@@ -21,7 +21,7 @@ public class CustomerController {
         return "OK: CUSTOMER-SERVICE";
     }
 
-/*    @PostMapping
+    @PostMapping
     // TO-DO: add security for personel and admin
     public CustomerDTO createCustomer(@RequestBody @Valid CreateCustomerDTO request) {
         return customerService.createCustomer(request);
@@ -39,6 +39,6 @@ public class CustomerController {
                                              @RequestParam(required = false) Integer size,
                                              @RequestParam(required = false) Sort.Direction sort) {
         return customerService.getAllCustomers(page, size, sort);
-    }*/
+    }
 
 }

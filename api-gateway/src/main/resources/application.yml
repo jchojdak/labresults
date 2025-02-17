@@ -22,5 +22,9 @@ springdoc:
     urls:
       - url: /auth/v3/api-docs
         name: Auth service
-      - url: /reception/v3/api-docs
-        name: Reception service
+      - url: /sample/v3/api-docs
+        name: Sample service
+      - url: /order/v3/api-docs
+        name: Order service
+      - url: /customer/v3/api-docs
+        name: Customer service

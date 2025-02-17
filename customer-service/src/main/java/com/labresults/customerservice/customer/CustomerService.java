@@ -6,7 +6,6 @@ import com.labresults.customerservice.customer.dto.CreateCustomerDTO;
 import com.labresults.customerservice.customer.dto.CustomerDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

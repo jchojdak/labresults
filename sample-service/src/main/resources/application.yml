@@ -5,19 +5,16 @@ spring:
   application:
     name: sample-service
   datasource:
-    url: jdbc:mysql://localhost:3306/labresults
+    url: jdbc:postgresql://localhost:5432/labresults
     username: labresults
-    password: password
+    password: labresults
   jpa:
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
-    database-platform: org.hibernate.dialect.MySQLDialect
-  rabbitmq:
-    username: user
-    password: password
-    host: localhost
-    port: 5672
 
 eureka:
   client:

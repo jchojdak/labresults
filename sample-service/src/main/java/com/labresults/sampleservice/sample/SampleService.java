@@ -1,8 +1,10 @@
 package com.labresults.sampleservice.sample;
 
+import com.labresults.sampleservice.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -24,5 +26,16 @@ public class SampleService {
 
     public void deleteSampleById(UUID sampleId) {
         sampleRepository.deleteById(sampleId);
+    }
+
+    public Sample findSampleById(UUID sampleId) {
+        Sample sample = sampleRepository.findById(sampleId)
+                .orElseThrow(() -> new EntityNotFoundException(sampleId.toString()));
+
+        return sample;
+    }
+
+    public List<Sample> findSamplesByOrderId(UUID orderId) {
+        return sampleRepository.findByOrderId(orderId);
     }
 }

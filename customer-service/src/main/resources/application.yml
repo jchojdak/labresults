@@ -6,8 +6,8 @@ spring:
     name: customer-service
   datasource:
     url: jdbc:postgresql://localhost:5432/labresults
-    username: postgres
-    password: password
+    username: labresults
+    password: labresults
   jpa:
     hibernate:
       ddl-auto: update
@@ -15,16 +15,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
-  cloud:
-    config:
-      server:
-        git:
-          uri: https://github.com/jchojdak/labresults.git
-  rabbitmq:
-    username: user
-    password: password
-    host: localhost
-    port: 5672
 
 eureka:
   client:
