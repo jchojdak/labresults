@@ -5,21 +5,6 @@ networks:
     driver: bridge
 
 services:
-  postgres:
-    container_name: postgres
-    image: postgres:16.2-alpine
-    restart: always
-    environment:
-      - POSTGRES_PASSWORD=labresults
-      - POSTGRES_USER=labresults
-      - POSTGRES_DB=labresults
-    ports:
-      - "5432:5432"
-    networks:
-      - labresults-network
-    volumes:
-      - db-data:/var/lib/postgresql/data
-
   config-server:
     container_name: config-server
     build:
@@ -34,6 +19,23 @@ services:
     volumes:
       - config-data:/configurations
 
+  postgres:
+    container_name: postgres
+    image: postgres:16.2-alpine
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=labresults
+      - POSTGRES_USER=labresults
+      - POSTGRES_DB=labresults
+    ports:
+      - "5432:5432"
+    networks:
+      - labresults-network
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    depends_on:
+      - config-server
+
   eureka-server:
     container_name: eureka-server
     build:
@@ -44,11 +46,11 @@ services:
       - "8761:8761"
     networks:
       - labresults-network
+    environment:
+      spring.config.import: optional:configserver:http://config-server:8888
     depends_on:
       - postgres
       - config-server
-    environment:
-      spring.config.import: optional:configserver:http://config-server:8888
 
   api-gateway:
     container_name: api-gateway
@@ -65,6 +67,7 @@ services:
       - labresults-network
     depends_on:
       - eureka-server
+      - config-server
 
   sample-service:
     container_name: sample-service
@@ -81,8 +84,10 @@ services:
     networks:
       - labresults-network
     depends_on:
+      - api-gateway
       - eureka-server
       - postgres
+      - config-server
 
   order-service:
     container_name: order-service
@@ -99,8 +104,10 @@ services:
     networks:
       - labresults-network
     depends_on:
+      - api-gateway
       - eureka-server
       - postgres
+      - config-server
 
   customer-service:
     container_name: customer-service
@@ -117,8 +124,10 @@ services:
     networks:
       - labresults-network
     depends_on:
+      - api-gateway
       - eureka-server
       - postgres
+      - config-server
 
 volumes:
   db-data:
