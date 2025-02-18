@@ -1,33 +1,5 @@
-server:
-  port: 8085
-
 spring:
   application:
     name: reception-service
-  datasource:
-    url: jdbc:mysql://localhost:3306/labresults
-    username: labresults
-    password: password
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    database-platform: org.hibernate.dialect.MySQLDialect
-  rabbitmq:
-    username: user
-    password: password
-    host: localhost
-    port: 5672
-
-eureka:
-  client:
-    service-url:
-      default-zone: http://localhost:8761/eureka/
-  instance:
-    preferIpAddress: true
-
-springdoc:
-  api-docs:
-    path: /reception/v3/api-docs
-  swagger-ui:
-    path: /reception/swagger-ui.html
+  config:
+    import: "optional:configserver:http://localhost:8888"

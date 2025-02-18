@@ -20,6 +20,20 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
 
+  config-server:
+    container_name: config-server
+    build:
+      context: .
+      dockerfile: /config-server/Dockerfile
+    ports:
+      - "8888:8888"
+    networks:
+      - labresults-network
+    environment:
+      SPRING_PROFILES_ACTIVE: native
+    volumes:
+      - config-data:/configurations
+
   eureka-server:
     container_name: eureka-server
     build:
@@ -32,6 +46,9 @@ services:
       - labresults-network
     depends_on:
       - postgres
+      - config-server
+    environment:
+      spring.config.import: optional:configserver:http://config-server:8888
 
   api-gateway:
     container_name: api-gateway
@@ -41,6 +58,7 @@ services:
     restart: always
     environment:
       eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+      spring.config.import: optional:configserver:http://config-server:8888
     ports:
       - "8080:8080"
     networks:
@@ -56,6 +74,7 @@ services:
     restart: always
     environment:
       spring.datasource.url: jdbc:postgresql://postgres:5432/labresults
+      spring.config.import: optional:configserver:http://config-server:8888
       eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
     ports:
       - "8082:8082"
@@ -73,6 +92,7 @@ services:
     restart: always
     environment:
       spring.datasource.url: jdbc:postgresql://postgres:5432/labresults
+      spring.config.import: optional:configserver:http://config-server:8888
       eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
     ports:
       - "8083:8083"
@@ -90,6 +110,7 @@ services:
     restart: always
     environment:
       spring.datasource.url: jdbc:postgresql://postgres:5432/labresults
+      spring.config.import: optional:configserver:http://config-server:8888
       eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
     ports:
       - "8084:8084"
@@ -101,4 +122,5 @@ services:
 
 volumes:
   db-data:
+  config-data:
   rabbitmq-data:

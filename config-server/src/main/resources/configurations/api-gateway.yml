@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+    instance:
+      preferIpAddress: true
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - url: /auth/v3/api-docs
+        name: Auth service
+      - url: /sample/v3/api-docs
+        name: Sample service
+      - url: /order/v3/api-docs
+        name: Order service
+      - url: /customer/v3/api-docs
+        name: Customer service
