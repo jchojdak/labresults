@@ -4,6 +4,7 @@
 * [Technology stack](#technology-stack)
 * * [Backend](#backend)
 * * [Database](#database)
+* * [Async queue](#async-queue)
 * * [Containerization](#containerization)
 * [Endpoints](#endpoints)
 
@@ -51,10 +52,14 @@ http://localhost:8080
 * JUnit 5
 * Mockito
 
+### Async queue
+* RabbitMQ 3
+
 ### Containerization
 * Docker
 * Multiple containers are configured in the `docker-compose.yml` file:
   - **postgres**: PostgreSQL 16.2 database, port 5432
+  - **rabbitmq**: RabbitMQ 3 server, port 5672 and 15672
   - **config-server**: Config server, port 8888
   - **eureka-server**: Service registry, port 8761
   - **api-gateway**: API Gateway, port 8080
@@ -62,6 +67,7 @@ http://localhost:8080
   - **sample-service**: Sample service, port 8082
   - **order-service**: Order service, port 8083
   - **customer-service**: Customer service, port 8084
+  - **notification-service**: Notification service, port 8085
 
 ## Endpoints
 

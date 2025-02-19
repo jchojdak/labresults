@@ -16,8 +16,6 @@ services:
       - labresults-network
     environment:
       SPRING_PROFILES_ACTIVE: native
-    volumes:
-      - config-data:/configurations
 
   postgres:
     container_name: postgres
@@ -35,6 +33,21 @@ services:
       - db-data:/var/lib/postgresql/data
     depends_on:
       - config-server
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - labresults-network
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
 
   eureka-server:
     container_name: eureka-server
@@ -129,7 +142,25 @@ services:
       - postgres
       - config-server
 
+  notification-service:
+    container_name: notification-service
+    build:
+      context: .
+      dockerfile: /notification-service/Dockerfile
+    restart: always
+    environment:
+      spring.config.import: optional:configserver:http://config-server:8888
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+      spring.rabbitmq.host: rabbitmq
+    ports:
+      - "8085:8085"
+    networks:
+      - labresults-network
+    depends_on:
+      - eureka-server
+      - config-server
+      - rabbitmq
+
 volumes:
   db-data:
-  config-data:
   rabbitmq-data:

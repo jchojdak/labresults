@@ -16,7 +16,7 @@
         <module>customer-service</module>
         <module>order-service</module>
         <module>sample-service</module>
-        <module>reception-service</module>
+        <module>notification-service</module>
     </modules>
 
     <properties>

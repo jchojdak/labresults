@@ -3,14 +3,16 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/labresults
+    url: jdbc:postgresql://localhost:5432/labresults
     username: labresults
-    password: password
+    password: labresults
   jpa:
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
-    database-platform: org.hibernate.dialect.MySQLDialect
   rabbitmq:
     username: user
     password: password
@@ -26,6 +28,6 @@ eureka:
 
 springdoc:
   api-docs:
-    path: /reception/v3/api-docs
+    path: /notification/v3/api-docs
   swagger-ui:
-    path: /reception/swagger-ui.html
+    path: /notification/swagger-ui.html
