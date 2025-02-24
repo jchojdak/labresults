@@ -18,6 +18,15 @@ spring:
     password: password
     host: localhost
     port: 5672
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: labresults@gmail.com
+    password: labresultspassword
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+  mail-from: labresults@gmail.com
 
 eureka:
   client:
