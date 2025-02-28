@@ -21,7 +21,7 @@ public class OrderController {
         return "OK: ORDER-SERVICE";
     }
 
-    @PostMapping
+    @PostMapping("/open")
     // TO-DO: add security for personel and admin
     public OrderDTO openOrder(@RequestBody @Valid OpenOrderRequest request) {
         return orderService.createOrder(request);
