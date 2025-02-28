@@ -40,3 +40,12 @@ springdoc:
     path: /notification/v3/api-docs
   swagger-ui:
     path: /notification/swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      show-details: always

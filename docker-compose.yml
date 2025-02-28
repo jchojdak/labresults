@@ -5,6 +5,32 @@ networks:
     driver: bridge
 
 services:
+  prometheus:
+    image: prom/prometheus:v2.53.3
+    container_name: prometheus
+    restart: always
+    ports:
+      - "9090:9090"
+    networks:
+      - labresults-network
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana:11.5.2
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    networks:
+      - labresults-network
+    volumes:
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: labresults
+    depends_on:
+      - prometheus
+
   config-server:
     container_name: config-server
     build:
@@ -16,6 +42,8 @@ services:
       - labresults-network
     environment:
       SPRING_PROFILES_ACTIVE: native
+    depends_on:
+      - grafana
 
   postgres:
     container_name: postgres

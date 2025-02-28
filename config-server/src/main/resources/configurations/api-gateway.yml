@@ -24,3 +24,12 @@ springdoc:
         name: Order service
       - url: /customer/v3/api-docs
         name: Customer service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      show-details: always

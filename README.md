@@ -5,6 +5,7 @@
 * * [Backend](#backend)
 * * [Database](#database)
 * * [Async queue](#async-queue)
+* * [Monitoring](#monitoring)
 * * [Containerization](#containerization)
 * [Endpoints](#endpoints)
 
@@ -56,9 +57,22 @@ http://localhost:8080
 ### Async queue
 * RabbitMQ 3
 
+### Monitoring
+* Prometheus 2.53.3 – collects and stores metrics from microservices.
+```
+http://localhost:9090
+```
+* Grafana 11.5.2 – visualizes metrics and provides customizable dashboard.
+* * Default credentials: `login: admin` `password: labresults`
+```
+http://localhost:3000
+```
+
 ### Containerization
 * Docker
 * Multiple containers are configured in the `docker-compose.yml` file:
+  - **prometheus**: Prometheus 2.53.3, port 9090
+  - **grafana**: Grafana 11.5.2, port 3000
   - **postgres**: PostgreSQL 16.2 database, port 5432
   - **rabbitmq**: RabbitMQ 3 server, port 5672 and 15672
   - **config-server**: Config server, port 8888

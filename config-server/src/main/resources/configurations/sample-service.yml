@@ -26,3 +26,12 @@ springdoc:
     path: /sample/v3/api-docs
   swagger-ui:
     path: /sample/swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      show-details: always
