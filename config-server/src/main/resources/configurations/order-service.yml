@@ -13,6 +13,11 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+  rabbitmq:
+    username: user
+    password: password
+    host: localhost
+    port: 5672
 
 eureka:
   client:

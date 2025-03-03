@@ -1,4 +1,4 @@
-package com.labresults.notificationservice.rabbit;
+package com.labresults.notificationservice.notification;
 
 import com.labresults.notificationservice.mail.MailService;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +11,7 @@ public class NotificationConsumer {
     private final MailService mailService;
 
     @RabbitListener(queues = "notification.queue")
-    public void receiveMessage(String message) {
-        // TO-DO String to, String subject, String text
-        mailService.send("implement.me@gmail.com", "LabResults - notification", message);
+    public void receiveMessage(NotificationRequest request) {
+        mailService.send(request.getMail(), request.getSubject(), request.getMessage());
     }
 }

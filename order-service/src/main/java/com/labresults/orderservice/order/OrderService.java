@@ -5,11 +5,13 @@ import com.labresults.orderservice.customer.CustomerResponse;
 import com.labresults.orderservice.exception.EntityNotFoundException;
 import com.labresults.orderservice.order.model.Order;
 import com.labresults.orderservice.order.model.enums.OrderStatus;
+import com.labresults.orderservice.order.model.request.NotificationRequest;
 import com.labresults.orderservice.order.model.request.OpenOrderRequest;
 import com.labresults.orderservice.order.model.dto.OrderDTO;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,9 +27,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderService {
     private static final String SORT_PROPERTIES = "createdAt";
+    private static final String EXCHANGE_NAME = "notification.exchange";
+    private static final String ROUTING_KEY = "notification.send";
+    private static final String NOTIFICATION_SUBJECT = "LabResults: Order status %s";
+    private static final String NOTIFICATION_MESSAGE = "Order ID: %s, status: %s, date: %s";
 
     private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
+
+    private final RabbitTemplate rabbitTemplate;
 
     private final CustomerClient customerClient;
 
@@ -49,6 +57,14 @@ public class OrderService {
                 .build();
 
         Order savedOrder = orderRepository.save(order);
+
+        NotificationRequest notificationRequest = NotificationRequest.builder()
+                .mail(customer.getEmail())
+                .subject(NOTIFICATION_SUBJECT.formatted(savedOrder.getStatus()))
+                .message(NOTIFICATION_MESSAGE.formatted(savedOrder.getId(), savedOrder.getStatus(), savedOrder.getCreatedAt()))
+                .build();
+
+        rabbitTemplate.convertAndSend(EXCHANGE_NAME, ROUTING_KEY, notificationRequest);
 
         return modelMapper.map(savedOrder, OrderDTO.class);
     }
