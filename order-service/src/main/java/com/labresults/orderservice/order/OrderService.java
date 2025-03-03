@@ -80,7 +80,7 @@ public class OrderService {
         return modelMapper.map(order, OrderDTO.class);
     }
 
-    public List<OrderDTO> getAllCustomers(Integer page, Integer size, Sort.Direction sort) {
+    public List<OrderDTO> getAllOrders(Integer page, Integer size, Sort.Direction sort) {
         int pageNumber = (page != null && page >= 0) ? page : 0;
         int pageSize = (size != null && size >= 1) ? size : 10;
         Sort.Direction sortDirection = (sort != null) ? sort : Sort.Direction.ASC;

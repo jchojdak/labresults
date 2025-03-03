@@ -38,7 +38,7 @@ public class OrderController {
     public List<OrderDTO> getAllOrders(@RequestParam(required = false) Integer page,
                                        @RequestParam(required = false) Integer size,
                                        @RequestParam(required = false) Sort.Direction sort) {
-        return orderService.getAllCustomers(page, size, sort);
+        return orderService.getAllOrders(page, size, sort);
     }
 
 }
