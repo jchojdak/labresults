@@ -83,6 +83,7 @@ http://localhost:3000
   - **order-service**: Order service, port 8083
   - **customer-service**: Customer service, port 8084
   - **notification-service**: Notification service, port 8085
+  - **result-service**: Result service, port 8086
 
 ## Endpoints
 
@@ -90,20 +91,21 @@ http://localhost:3000
 http://localhost:8080
 ```
 
-| #  | Method | Endpoint                  | Description                        |
-|----|--------|---------------------------|------------------------------------|
-| 1  | POST   | `/auth/register`          | User registration                  |
-| 2  | POST   | `/auth/login`             | User login                         |
-| 3  | GET    | `/sample/test`            | Test endpoint for sample service   |
-| 4  | POST   | `/sample`                 | Create a new sample                |
-| 5  | DELETE | `/sample/{sampleId}`      | Delete sample by ID                |
-| 6  | GET    | `/sample/{sampleId}`      | Get sample by ID                   |
-| 7  | GET    | `/sample/order/{orderId}` | Get samples by order ID            |
-| 8  | GET    | `/order/test`             | Test endpoint for order service    |
-| 9  | POST   | `/order/open`             | Open a new order                   |
-| 10 | GET    | `/order/{orderId}`        | Get order by ID                    |
-| 11 | GET    | `/order`                  | Get all orders                     |
-| 12 | GET    | `/customer/test`          | Test endpoint for customer service |
-| 13 | POST   | `/customer`               | Create a new customer              |
-| 14 | GET    | `/customer/{customerId}`  | Get customer by ID                 |
-| 15 | GET    | `/customer`               | Get all customers                  |
+| #  | Method | Endpoint                                  | Description                        |
+|----|--------|-------------------------------------------|------------------------------------|
+| 1  | POST   | `/auth/register`                          | User registration                  |
+| 2  | POST   | `/auth/login`                             | User login                         |
+| 3  | GET    | `/sample/test`                            | Test endpoint for sample service   |
+| 4  | POST   | `/sample`                                 | Create a new sample                |
+| 5  | DELETE | `/sample/{sampleId}`                      | Delete sample by ID                |
+| 6  | GET    | `/sample/{sampleId}`                      | Get sample by ID                   |
+| 7  | GET    | `/sample/order/{orderId}`                 | Get samples by order ID            |
+| 8  | GET    | `/order/test`                             | Test endpoint for order service    |
+| 9  | POST   | `/order/open`                             | Open a new order                   |
+| 10 | GET    | `/order/{orderId}`                        | Get order by ID                    |
+| 11 | GET    | `/order`                                  | Get all orders                     |
+| 12 | GET    | `/customer/test`                          | Test endpoint for customer service |
+| 13 | POST   | `/customer`                               | Create a new customer              |
+| 14 | GET    | `/customer/{customerId}`                  | Get customer by ID                 |
+| 15 | GET    | `/customer`                               | Get all customers                  |
+| 16 | GET    | `/result/{orderId}/collect?pesel={pesel}` | Collect the order result           |

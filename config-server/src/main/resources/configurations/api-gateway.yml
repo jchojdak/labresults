@@ -24,6 +24,8 @@ springdoc:
         name: Order service
       - url: /customer/v3/api-docs
         name: Customer service
+      - url: /result/v3/api-docs
+        name: Result service
 
 management:
   endpoints:

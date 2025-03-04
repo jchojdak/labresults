@@ -17,6 +17,7 @@
         <module>order-service</module>
         <module>sample-service</module>
         <module>notification-service</module>
+        <module>result-service</module>
     </modules>
 
     <properties>
