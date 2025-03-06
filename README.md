@@ -4,8 +4,10 @@
 * [Technology stack](#technology-stack)
 * * [Backend](#backend)
 * * [Database](#database)
+* * [Testing](#testing)
 * * [Async queue](#async-queue)
 * * [Monitoring](#monitoring)
+* * [CI/CD](#cicd)
 * * [Containerization](#containerization)
 * [Endpoints](#endpoints)
 
@@ -35,13 +37,14 @@ http://localhost:8080
 ### Backend
 * Java 17
 * Spring Boot 3.4.0
+* Spring Boot Web
 * Spring Boot Actuator
-* Spring Boot AMQP Rabbit
+* Spring Boot AMQP RabbitMQ
 * Spring Data JPA
 * Spring Cloud Config
 * Spring Cloud OpenFeign
 * Spring Cloud Netflix Eureka
-* Spring Cloud Routing Gateway
+* Spring Cloud Gateway 
 * Spring Mail
 * Springdoc OpenAPI Swagger UI
 * ModelMapper
@@ -67,6 +70,9 @@ http://localhost:9090
 ```
 http://localhost:3000
 ```
+
+### CI/CD
+This repository uses **GitHub Actions** for automatic building and testing on every `push` and `pull request` to the `master` branch.
 
 ### Containerization
 * Docker
