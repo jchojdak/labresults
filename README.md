@@ -6,6 +6,7 @@
 * * [Database](#database)
 * * [Testing](#testing)
 * * [Async queue](#async-queue)
+* * [Auth](#auth)
 * * [Monitoring](#monitoring)
 * * [CI/CD](#cicd)
 * * [Containerization](#containerization)
@@ -30,6 +31,8 @@ Application supporting a medical laboratory - get your medical test results onli
 * Spring Cloud OpenFeign
 * Spring Cloud Netflix Eureka
 * Spring Cloud Gateway 
+* Spring Security
+* Spring Security OAuth2 Resource Server
 * Spring Mail
 * Springdoc OpenAPI Swagger UI
 * ModelMapper
@@ -44,6 +47,9 @@ Application supporting a medical laboratory - get your medical test results onli
 
 ### Async queue
 * RabbitMQ 3
+
+### Auth
+* Keycloak
 
 ### Monitoring
 * Prometheus 2.53.3 – collects and stores metrics from microservices.
