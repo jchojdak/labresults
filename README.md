@@ -49,7 +49,8 @@ Application supporting a medical laboratory - get your medical test results onli
 * RabbitMQ 3
 
 ### Auth
-* Keycloak
+* Keycloak 26.1.3 - user authentication and authorization. Groups and global realm roles: ADMIN, LAB_TECHNICIAN, RECEPTIONIST.
+* * Default admin console credentials: `login: admin` `password: password`
 
 ### Monitoring
 * Prometheus 2.53.3 – collects and stores metrics from microservices.
