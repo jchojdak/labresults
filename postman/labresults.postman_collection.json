@@ -1,0 +1,803 @@
+{
+	"info": {
+		"_postman_id": "96b3fa66-e3da-4e42-b564-a78f1ab8fb27",
+		"name": "labresults",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28801924"
+	},
+	"item": [
+		{
+			"name": "order-service",
+			"item": [
+				{
+					"name": "Create new order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"customerId\": \"7e031558-d2b3-4d75-8952-64db7dd2735f\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/order/open",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								"open"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"customerId\": \"2c5af11b-1008-412c-91db-5f8732b0ea73\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/order",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"order"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 17 Feb 2025 16:41:42 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"08db2131-13fb-40d0-9b6d-aa5bbab118c4\",\n    \"customerId\": \"2c5af11b-1008-412c-91db-5f8732b0ea73\",\n    \"createdAt\": \"2025-02-17T16:41:42.196841825\",\n    \"updatedAt\": \"2025-02-17T16:41:42.196863426\",\n    \"status\": \"CREATED\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Test order-service",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/order/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								"test"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/order/test",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"order",
+										"test"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "17"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 17 Feb 2025 16:42:42 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "OK: ORDER-SERVICE"
+						}
+					]
+				},
+				{
+					"name": "Get order details by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/order/08db2131-13fb-40d0-9b6d-aa5bbab118c4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								"08db2131-13fb-40d0-9b6d-aa5bbab118c4"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/order/08db2131-13fb-40d0-9b6d-aa5bbab118c4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"order",
+										"08db2131-13fb-40d0-9b6d-aa5bbab118c4"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 17 Feb 2025 16:43:35 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"08db2131-13fb-40d0-9b6d-aa5bbab118c4\",\n    \"customerId\": \"2c5af11b-1008-412c-91db-5f8732b0ea73\",\n    \"createdAt\": \"2025-02-17T16:41:42.196842\",\n    \"updatedAt\": \"2025-02-17T16:41:42.196863\",\n    \"status\": \"CREATED\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get all orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/order?page=0&size=10&sort=ASC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "ASC"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/order?page=0&size=10&sort=ASC",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"order"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "ASC"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 17 Feb 2025 16:44:52 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"4fef0d0d-fae1-4f5d-9885-f3b36c000968\",\n        \"customerId\": \"2c5af11b-1008-412c-91db-5f8732b0ea73\",\n        \"createdAt\": \"2025-02-17T16:37:16.349354\",\n        \"updatedAt\": \"2025-02-17T16:37:16.349404\",\n        \"status\": \"CREATED\"\n    },\n    {\n        \"id\": \"08db2131-13fb-40d0-9b6d-aa5bbab118c4\",\n        \"customerId\": \"2c5af11b-1008-412c-91db-5f8732b0ea73\",\n        \"createdAt\": \"2025-02-17T16:41:42.196842\",\n        \"updatedAt\": \"2025-02-17T16:41:42.196863\",\n        \"status\": \"CREATED\"\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "customer-service",
+			"item": [
+				{
+					"name": "Get customer by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/customer/2c5af11b-1008-412c-91db-5f8732b0ea73",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer",
+								"2c5af11b-1008-412c-91db-5f8732b0ea73"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/customer/2c5af11b-1008-412c-91db-5f8732b0ea73",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"customer",
+										"2c5af11b-1008-412c-91db-5f8732b0ea73"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 17 Feb 2025 16:46:42 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"2c5af11b-1008-412c-91db-5f8732b0ea73\",\n    \"email\": \"string@string.com\",\n    \"pesel\": \"05479093229\",\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"mobile\": \"334071429827\",\n    \"dateOfBirth\": \"2020-02-17\",\n    \"registrationDate\": \"2025-02-17T14:44:10.316581\",\n    \"active\": false,\n    \"blocked\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "Create new customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"string@string.com\",\r\n    \"pesel\": \"05479093229\",\r\n    \"firstName\": \"string\",\r\n    \"lastName\": \"string\",\r\n    \"mobile\": \"334071429827\",\r\n    \"dateOfBirth\": \"2020-02-17\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test customer-service",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/customer/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer",
+								"test"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/customer/test",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"customer",
+										"test"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "20"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 17 Feb 2025 16:48:31 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "OK: CUSTOMER-SERVICE"
+						}
+					]
+				},
+				{
+					"name": "Get all customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/customer?page=0&size=10&sort=DESC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "DESC"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/customer?page=0&size=10&sort=DESC",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"customer"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "DESC"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "transfer-encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 17 Feb 2025 16:49:09 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"2c5af11b-1008-412c-91db-5f8732b0ea73\",\n        \"email\": \"string@string.com\",\n        \"pesel\": \"05479093229\",\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"mobile\": \"334071429827\",\n        \"dateOfBirth\": \"2020-02-17\",\n        \"registrationDate\": \"2025-02-17T14:44:10.316581\",\n        \"active\": false,\n        \"blocked\": false\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "sample-service",
+			"item": [
+				{
+					"name": "Create new sample",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderId\": \"2c5af11b-1008-412c-91db-5f8732b0ea73\",\r\n    \"name\": \"Sample test\",\r\n    \"type\": \"Sample type\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/sample",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sample"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get sample by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/sample/70660794-46bf-4fcf-9b88-2f0b24b4e475",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sample",
+								"70660794-46bf-4fcf-9b88-2f0b24b4e475"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find samples by order ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/sample/order/2c5af11b-1008-412c-91db-5f8732b0ea73",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sample",
+								"order",
+								"2c5af11b-1008-412c-91db-5f8732b0ea73"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete sample by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/sample/2c5af11b-1008-412c-91db-5f8732b0ea73",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sample",
+								"2c5af11b-1008-412c-91db-5f8732b0ea73"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test sample-service",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/sample/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sample",
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "result-service",
+			"item": [
+				{
+					"name": "Get result by order ID and pesel",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/result/96c3f4eb-3c4d-4792-8280-62a8c6a9e9fb/collect?pesel=123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"result",
+								"96c3f4eb-3c4d-4792-8280-62a8c6a9e9fb",
+								"collect"
+							],
+							"query": [
+								{
+									"key": "pesel",
+									"value": "123"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test result-service",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/result/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"result",
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "clientSecret",
+				"value": "N4kGllBXCpMJ5EtEHE7BYlbG0OwhpBiY",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "password",
+				"type": "string"
+			},
+			{
+				"key": "refreshRequestParams",
+				"value": [],
+				"type": "any"
+			},
+			{
+				"key": "tokenRequestParams",
+				"value": [],
+				"type": "any"
+			},
+			{
+				"key": "authRequestParams",
+				"value": [],
+				"type": "any"
+			},
+			{
+				"key": "challengeAlgorithm",
+				"value": "S256",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "jankowalski",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "openid",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "password_credentials",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "labresults-gateway-client",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "http://localhost:8081/realms/labresults/protocol/openid-connect/token",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
