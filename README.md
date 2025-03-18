@@ -1,6 +1,6 @@
 # LabResults
 * [About](#about)
-* [Starting up](#starting-up)
+* * [Microservices architecture pattern](#microservices-architecture-pattern)
 * [Technology stack](#technology-stack)
 * * [Backend](#backend)
 * * [Database](#database)
@@ -9,29 +9,14 @@
 * * [Monitoring](#monitoring)
 * * [CI/CD](#cicd)
 * * [Containerization](#containerization)
+* [Starting up](#starting-up)
 * [Endpoints](#endpoints)
 
 ## About
 Application supporting a medical laboratory - get your medical test results online.
 
-## Starting up
-To launch the application, follow the steps:
-1. Clone project
-```
-git clone https://github.com/jchojdak/labresults.git
-```
-2. Open cloned directory
-```
-cd labresults
-```
-3. Start the application using docker-compose
-```
-docker-compose up -d
-```
-4. Application address
-```
-http://localhost:8080
-```
+### Microservices architecture pattern
+![image](https://github.com/user-attachments/assets/a8902caf-1044-489c-a30e-5bd2487d7ba3)
 
 ## Technology stack
 ### Backend
@@ -90,6 +75,25 @@ This repository uses **GitHub Actions** for automatic building and testing on ev
   - **customer-service**: Customer service, port 8084
   - **notification-service**: Notification service, port 8085
   - **result-service**: Result service, port 8086
+
+## Starting up
+To launch the application, follow the steps:
+1. Clone project
+```
+git clone https://github.com/jchojdak/labresults.git
+```
+2. Open cloned directory
+```
+cd labresults
+```
+3. Start the application using docker-compose
+```
+docker-compose up -d
+```
+4. Application address
+```
+http://localhost:8080
+```
 
 ## Endpoints
 
