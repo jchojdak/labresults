@@ -16,8 +16,6 @@ springdoc:
     path: /swagger-ui.html
     config-url: /v3/api-docs/swagger-config
     urls:
-      - url: /auth/v3/api-docs
-        name: Auth service
       - url: /sample/v3/api-docs
         name: Sample service
       - url: /order/v3/api-docs
@@ -35,3 +33,10 @@ management:
   endpoint:
     health:
       show-details: always
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8081/realms/labresults/protocol/openid-connect/certs
