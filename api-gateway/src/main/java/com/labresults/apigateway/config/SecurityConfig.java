@@ -28,6 +28,8 @@ public class SecurityConfig {
                         .pathMatchers(HttpMethod.GET, "/sample/order/*").hasAnyRole("ADMIN", "RECEPTIONIST", "LAB_TECHNICIAN")
                         .pathMatchers(HttpMethod.POST, "/order/open").hasAnyRole("ADMIN", "RECEPTIONIST")
                         .pathMatchers(HttpMethod.GET, "/order/*").hasAnyRole("ADMIN", "RECEPTIONIST")
+                        .pathMatchers(HttpMethod.GET, "/order/*/status").hasAnyRole("ADMIN", "RECEPTIONIST", "LAB_TECHNICIAN")
+                        .pathMatchers(HttpMethod.PATCH, "/order/*/status").hasAnyRole("ADMIN", "RECEPTIONIST", "LAB_TECHNICIAN")
                         .pathMatchers(HttpMethod.GET, "/order").hasAnyRole("ADMIN", "RECEPTIONIST")
                         .pathMatchers(HttpMethod.POST, "/customer").hasAnyRole("ADMIN", "RECEPTIONIST")
                         .pathMatchers(HttpMethod.GET, "/customer/*").hasAnyRole("ADMIN", "RECEPTIONIST")

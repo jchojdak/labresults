@@ -5,6 +5,7 @@ import com.labresults.orderservice.customer.CustomerResponse;
 import com.labresults.orderservice.exception.EntityNotFoundException;
 import com.labresults.orderservice.order.model.Order;
 import com.labresults.orderservice.order.model.dto.OrderDTO;
+import com.labresults.orderservice.order.model.dto.OrderStatusDTO;
 import com.labresults.orderservice.order.model.enums.OrderStatus;
 import com.labresults.orderservice.order.model.request.NotificationRequest;
 import com.labresults.orderservice.order.model.request.OpenOrderRequest;
@@ -135,5 +136,45 @@ public class OrderServiceTest {
         assertNotNull(result);
         assertEquals(1, result.size());
         assertEquals(orderDTO, result.get(0));
+    }
+
+    @Test
+    void getOrderStatusSuccessfully() {
+        when(orderRepository.findById(orderId)).thenReturn(Optional.of(order));
+
+        OrderStatusDTO result = orderService.getOrderStatus(orderId);
+
+        assertNotNull(result);
+        assertEquals(order.getId(), result.getId());
+        assertEquals(order.getStatus(), result.getStatus());
+        assertEquals(order.getUpdatedAt(), result.getUpdatedAt());
+    }
+
+    @Test
+    void getOrderStatusNotFound() {
+        when(orderRepository.findById(orderId)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> orderService.getOrderStatus(orderId));
+    }
+
+    @Test
+    void updateOrderStatusSuccessfully() {
+        OrderStatus newStatus = OrderStatus.COMPLETED;
+        when(orderRepository.findById(orderId)).thenReturn(Optional.of(order));
+        when(orderRepository.save(any(Order.class))).thenReturn(order);
+
+        OrderStatusDTO result = orderService.updateOrderStatus(orderId, newStatus);
+
+        assertNotNull(result);
+        assertEquals(order.getId(), result.getId());
+        assertEquals(newStatus, result.getStatus());
+        assertNotNull(result.getUpdatedAt());
+    }
+
+    @Test
+    void updateOrderStatusNotFound() {
+        when(orderRepository.findById(orderId)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> orderService.updateOrderStatus(orderId, OrderStatus.COMPLETED));
     }
 }

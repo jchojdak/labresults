@@ -4,6 +4,7 @@ import com.labresults.orderservice.customer.CustomerClient;
 import com.labresults.orderservice.customer.CustomerResponse;
 import com.labresults.orderservice.exception.EntityNotFoundException;
 import com.labresults.orderservice.order.model.Order;
+import com.labresults.orderservice.order.model.dto.OrderStatusDTO;
 import com.labresults.orderservice.order.model.enums.OrderStatus;
 import com.labresults.orderservice.order.model.request.NotificationRequest;
 import com.labresults.orderservice.order.model.request.OpenOrderRequest;
@@ -93,5 +94,32 @@ public class OrderService {
                 .stream()
                 .map(order -> modelMapper.map(order, OrderDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    public OrderStatusDTO getOrderStatus(UUID orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new EntityNotFoundException(orderId.toString()));
+
+        return OrderStatusDTO.builder()
+                .id(order.getId())
+                .status(order.getStatus())
+                .updatedAt(order.getUpdatedAt())
+                .build();
+    }
+
+    public OrderStatusDTO updateOrderStatus(UUID orderId, OrderStatus status) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new EntityNotFoundException(orderId.toString()));
+
+        order.setStatus(status);
+        order.setUpdatedAt(LocalDateTime.now());
+
+        Order updatedOrder = orderRepository.save(order);
+
+        return OrderStatusDTO.builder()
+                .id(updatedOrder.getId())
+                .status(updatedOrder.getStatus())
+                .updatedAt(updatedOrder.getUpdatedAt())
+                .build();
     }
 }

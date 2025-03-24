@@ -165,9 +165,11 @@ http://localhost:8080
 | 8  | GET    | `/order/test`                             | Test endpoint for order service    | Public                              |
 | 9  | POST   | `/order/open`                             | Open a new order                   | ADMIN, RECEPTIONIST                 |
 | 10 | GET    | `/order/{orderId}`                        | Get order by ID                    | ADMIN, RECEPTIONIST                 |
-| 11 | GET    | `/order`                                  | Get all orders                     | ADMIN, RECEPTIONIST                 |
-| 12 | GET    | `/customer/test`                          | Test endpoint for customer service | Public                              |
-| 13 | POST   | `/customer`                               | Create a new customer              | ADMIN, RECEPTIONIST                 |
-| 14 | GET    | `/customer/{customerId}`                  | Get customer by ID                 | ADMIN, RECEPTIONIST                 |
-| 15 | GET    | `/customer`                               | Get all customers                  | ADMIN, RECEPTIONIST                 |
-| 16 | GET    | `/result/{orderId}/collect?pesel={pesel}` | Collect the order result           | Public                              |
+| 11 | GET    | `/order/{orderId}/status`                 | Get order status by ID             | ADMIN, RECEPTIONIST, LAB_TECHNICIAN |
+| 12 | PATCH  | `/order/{orderId}/status`                 | Update order status by ID          | ADMIN, RECEPTIONIST, LAB_TECHNICIAN |
+| 13 | GET    | `/order`                                  | Get all orders                     | ADMIN, RECEPTIONIST                 |
+| 14 | GET    | `/customer/test`                          | Test endpoint for customer service | Public                              |
+| 15 | POST   | `/customer`                               | Create a new customer              | ADMIN, RECEPTIONIST                 |
+| 16 | GET    | `/customer/{customerId}`                  | Get customer by ID                 | ADMIN, RECEPTIONIST                 |
+| 17 | GET    | `/customer`                               | Get all customers                  | ADMIN, RECEPTIONIST                 |
+| 18 | GET    | `/result/{orderId}/collect?pesel={pesel}` | Collect the order result           | Public                              |

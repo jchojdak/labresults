@@ -1,5 +1,8 @@
 package com.labresults.orderservice.order;
 
+import com.labresults.orderservice.order.model.dto.OrderStatusDTO;
+import com.labresults.orderservice.order.model.dto.UpdateStatusDTO;
+import com.labresults.orderservice.order.model.enums.OrderStatus;
 import com.labresults.orderservice.order.model.request.OpenOrderRequest;
 import com.labresults.orderservice.order.model.dto.OrderDTO;
 import jakarta.validation.Valid;
@@ -39,6 +42,19 @@ public class OrderController {
                                        @RequestParam(required = false) Integer size,
                                        @RequestParam(required = false) Sort.Direction sort) {
         return orderService.getAllOrders(page, size, sort);
+    }
+
+    @GetMapping("/{orderId}/status")
+    public OrderStatusDTO getOrderStatus(@PathVariable UUID orderId) {
+        return orderService.getOrderStatus(orderId);
+    }
+
+    @PatchMapping("/{orderId}/status")
+    public OrderStatusDTO updateOrderStatus(@PathVariable UUID orderId,
+                                            @RequestBody UpdateStatusDTO request) {
+        OrderStatus status = request.getStatus();
+
+        return orderService.updateOrderStatus(orderId, status);
     }
 
 }
