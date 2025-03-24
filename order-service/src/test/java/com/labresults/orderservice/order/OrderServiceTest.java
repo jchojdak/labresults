@@ -162,6 +162,7 @@ public class OrderServiceTest {
         OrderStatus newStatus = OrderStatus.COMPLETED;
         when(orderRepository.findById(orderId)).thenReturn(Optional.of(order));
         when(orderRepository.save(any(Order.class))).thenReturn(order);
+        when(customerClient.getUser(order.getCustomerId())).thenReturn(customerResponse);
 
         OrderStatusDTO result = orderService.updateOrderStatus(orderId, newStatus);
 
@@ -169,6 +170,7 @@ public class OrderServiceTest {
         assertEquals(order.getId(), result.getId());
         assertEquals(newStatus, result.getStatus());
         assertNotNull(result.getUpdatedAt());
+        verify(rabbitTemplate).convertAndSend(anyString(), anyString(), any(NotificationRequest.class));
     }
 
     @Test
@@ -177,4 +179,5 @@ public class OrderServiceTest {
 
         assertThrows(EntityNotFoundException.class, () -> orderService.updateOrderStatus(orderId, OrderStatus.COMPLETED));
     }
+
 }

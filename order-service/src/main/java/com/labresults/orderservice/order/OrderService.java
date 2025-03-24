@@ -116,6 +116,21 @@ public class OrderService {
 
         Order updatedOrder = orderRepository.save(order);
 
+        CustomerResponse customer;
+        try {
+            customer = customerClient.getUser(updatedOrder.getCustomerId());
+        } catch (FeignException.NotFound e) {
+            throw new EntityNotFoundException(updatedOrder.getCustomerId().toString());
+        }
+
+        NotificationRequest notificationRequest = NotificationRequest.builder()
+                .mail(customer.getEmail())
+                .subject(NOTIFICATION_SUBJECT.formatted(updatedOrder.getStatus()))
+                .message(NOTIFICATION_MESSAGE.formatted(updatedOrder.getId(), updatedOrder.getStatus(), updatedOrder.getUpdatedAt()))
+                .build();
+
+        rabbitTemplate.convertAndSend(EXCHANGE_NAME, ROUTING_KEY, notificationRequest);
+
         return OrderStatusDTO.builder()
                 .id(updatedOrder.getId())
                 .status(updatedOrder.getStatus())
