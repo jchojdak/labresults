@@ -4,9 +4,7 @@ server:
 eureka:
   client:
     service-url:
-      default-zone: http://localhost:8761/eureka/
-    instance:
-      preferIpAddress: true
+      defaultZone: ${CONFIG_EUREKA_URL:http://localhost:8761/eureka/}
 
 springdoc:
   api-docs:
@@ -39,4 +37,4 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:8081/realms/labresults/protocol/openid-connect/certs
+          jwk-set-uri: ${CONFIG_KEYCLOAK_URL:http://localhost:8081/realms/labresults/protocol/openid-connect/certs}

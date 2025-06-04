@@ -12,12 +12,12 @@
         <module>eureka-server</module>
         <module>config-server</module>
         <module>api-gateway</module>
-        <module>auth-service</module>
-        <module>customer-service</module>
-        <module>order-service</module>
-        <module>sample-service</module>
-        <module>notification-service</module>
-        <module>result-service</module>
+        <module>services/auth-service</module>
+        <module>services/customer-service</module>
+        <module>services/order-service</module>
+        <module>services/sample-service</module>
+        <module>services/notification-service</module>
+        <module>services/result-service</module>
     </modules>
 
     <properties>

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: result-service
+  namespace: labresults
+spec:
+  type: ClusterIP
+  selector:
+    app: result-service
+  ports:
+    - protocol: TCP
+      targetPort: 8086
+      port: 8086

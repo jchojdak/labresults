@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  namespace: labresults
+data:
+  POSTGRES_DB: labresults
+  POSTGRES_USER: labresults
+  POSTGRES_PASSWORD: labresults

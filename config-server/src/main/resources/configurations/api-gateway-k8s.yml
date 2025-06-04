@@ -1,0 +1,10 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: ${CONFIG_EUREKA_URL:http://eureka-server:8761/eureka/}
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${CONFIG_KEYCLOAK_URL:http://keycloak:8081/realms/labresults/protocol/openid-connect/certs}

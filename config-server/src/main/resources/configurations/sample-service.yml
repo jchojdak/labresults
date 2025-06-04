@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/labresults
+    url: ${CONFIG_POSTGRES_URL:jdbc:postgresql://localhost:5432/labresults}
     username: labresults
     password: labresults
   jpa:
@@ -17,9 +17,7 @@ spring:
 eureka:
   client:
     service-url:
-      default-zone: http://localhost:8761/eureka/
-  instance:
-    preferIpAddress: true
+      defaultZone: ${CONFIG_EUREKA_URL:http://localhost:8761/eureka/}
 
 springdoc:
   api-docs:

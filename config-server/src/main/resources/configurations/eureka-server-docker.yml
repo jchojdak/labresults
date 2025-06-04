@@ -1,0 +1,4 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${CONFIG_EUREKA_URL:http://eureka-server:8761/eureka/}

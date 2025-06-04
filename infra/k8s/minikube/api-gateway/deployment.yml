@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+  namespace: labresults
+  labels:
+    app: api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+        - name: api-gateway
+          image: jchojdak/labresults:api-gateway
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s
+            - name: CONFIG_SERVER_URL
+              value: http://config-server:8888
+            - name: CONFIG_EUREKA_URL
+              value: http://eureka-server:8761/eureka/
+            - name: CONFIG_KEYCLOAK_URL
+              value: http://keycloak:8081/realms/labresults/protocol/openid-connect/certs

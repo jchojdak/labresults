@@ -1,7 +1,7 @@
 # STAGE 1: build
 FROM maven:3.8.4-openjdk-17 AS build
 WORKDIR /app
-COPY api-gateway/ .
+COPY . .
 RUN mvn clean package -DskipTests
 
 # STAGE 2: run

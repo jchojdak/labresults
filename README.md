@@ -18,6 +18,7 @@
 * * [Monitoring](#-monitoring)
 * * [CI/CD](#-cicd)
 * * [Containerization](#-containerization)
+* * [Orchestration](#-orchestration)
 * [API documentation](#-api-documentation)
 * * [Swagger UI](#-swagger-ui)
 * * [Postman](#-postman)
@@ -98,7 +99,7 @@ This repository uses **GitHub Actions** for automatic building and testing on ev
 
 ### 📦 Containerization
 * Docker
-* Multiple containers are configured in the `docker-compose.yml` file:
+* Multiple containers are configured in the `infra/docker/docker-compose.yml` file:
   - **prometheus**: Prometheus 2.53.3, port 9090
   - **grafana**: Grafana 11.5.2, port 3000
   - **postgres**: PostgreSQL 16.2 database, port 5432
@@ -112,6 +113,9 @@ This repository uses **GitHub Actions** for automatic building and testing on ev
   - **customer-service**: Customer service, port 8084
   - **notification-service**: Notification service, port 8085
   - **result-service**: Result service, port 8086
+
+### 📦 Orchestration
+* Kubernetes (Minikube) - orchestrates the deployment of microservices in a local environment.
 
 ## 📄 API documentation
 ### 📍 Swagger UI
@@ -138,9 +142,15 @@ git clone https://github.com/jchojdak/labresults.git
 ```
 cd labresults
 ```
-3. Start the application using docker-compose
+3. Start the application using bash script and Docker Compose:
 ```
-docker-compose up -d
+./start.sh docker
+```
+or Kubernetes (Minikube):
+```
+./start.sh k8s
+
+minikube service api-gateway -n labresults
 ```
 4. Application address
 ```

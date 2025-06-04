@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: ${CONFIG_POSTGRES_URL:jdbc:postgresql://postgres:5432/labresults}
+eureka:
+  client:
+    service-url:
+      defaultZone: ${CONFIG_EUREKA_URL:http://eureka-server:8761/eureka/}

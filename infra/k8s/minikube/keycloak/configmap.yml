@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-config
+  namespace: labresults
+data:
+  KC_DB: postgres
+  KC_DB_URL: jdbc:postgresql://postgres:5432/labresults
+  KC_DB_USERNAME: labresults
+#  KC_HOSTNAME: keycloak
+  KC_HTTP_PORT: "8081"
+  KC_PROXY: edge
+  KC_METRICS_ENABLED: "true"
+  KC_HEALTH_ENABLED: "true"
+  KC_DB_PASSWORD: labresults
+  KC_IMPORT: /opt/keycloak/data/import/realm-export.json
+  KEYCLOAK_ADMIN: admin
+  KEYCLOAK_ADMIN_PASSWORD: admin

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-service
+  namespace: labresults
+  labels:
+    app: notification-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification-service
+  template:
+    metadata:
+      labels:
+        app: notification-service
+    spec:
+      containers:
+        - name: notification-service
+          image: jchojdak/labresults:notification-service
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8085
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s
+            - name: CONFIG_SERVER_URL
+              value: http://config-server:8888
+            - name: CONFIG_POSTGRES_URL
+              value: jdbc:postgresql://postgres:5432/labresults
+            - name: CONFIG_EUREKA_URL
+              value: http://eureka-server:8761/eureka/
