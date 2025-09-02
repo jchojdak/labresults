@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     url: ${CONFIG_POSTGRES_URL:jdbc:postgresql://localhost:5432/labresults}
-    username: labresults
-    password: labresults
+    username: ${CONFIG_POSTGRES_USERNAME:labresults}
+    password: ${CONFIG_POSTGRES_PASSWORD:labresults}
   jpa:
     hibernate:
       ddl-auto: update
@@ -14,19 +14,19 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
   rabbitmq:
-    username: user
-    password: password
-    host: localhost
-    port: 5672
+    username: ${CONFIG_RABBITMQ_USERNAME:user}
+    password: ${CONFIG_RABBITMQ_PASSWORD:password}
+    host: ${CONFIG_RABBITMQ_HOST:localhost}
+    port: ${CONFIG_RABBITMQ_PORT:5672}
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: labresults@gmail.com
-    password: labresultspassword
+    host: ${CONFIG_SMTP_HOST:smtp.gmail.com}
+    port: ${CONFIG_SMTP_PORT:587}
+    username: ${CONFIG_SMTP_USERNAME:labresults@gmail.com}
+    password: ${CONFIG_SMTP_PASSWORD:labresultspassword}
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
-  mail-from: labresults@gmail.com
+  mail-from: ${CONFIG_MAIL_FROM:labresults@gmail.com}
 
 eureka:
   client:

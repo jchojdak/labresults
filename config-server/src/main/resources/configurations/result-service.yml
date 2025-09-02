@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     url: ${CONFIG_POSTGRES_URL:jdbc:postgresql://localhost:5432/labresults}
-    username: labresults
-    password: labresults
+    username: ${CONFIG_POSTGRES_USERNAME:labresults}
+    password: ${CONFIG_POSTGRES_PASSWORD:labresults}
   jpa:
     hibernate:
       ddl-auto: update
